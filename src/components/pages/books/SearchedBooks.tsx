@@ -1,13 +1,13 @@
 "use client";
 
-import BookCard from "@/components/pages/books/BookCard";
 import { apiBaseUrl } from "@/secrets";
-import { TBook } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import BookCard from "./BookCard";
+import { TBook } from "@/types";
 
-const Books = () => {
+const SearchedBooks = () => {
   const searchParams = useSearchParams();
 
   const { data, isLoading } = useQuery({
@@ -23,10 +23,10 @@ const Books = () => {
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div className="grid basis-full grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+    <section>
       {data?.payload?.map((book: TBook) => <BookCard key={book.id} />)}
-    </div>
+    </section>
   );
 };
 
-export default Books;
+export default SearchedBooks;
