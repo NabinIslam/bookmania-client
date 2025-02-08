@@ -3,10 +3,10 @@ import { Button } from "../ui/button";
 
 const Header = () => {
   return (
-    <header className="py-3">
+    <header className="sticky top-0 z-50 bg-white py-3">
       <nav className="container flex items-center justify-between">
         <Link
-          className="hover:bg-accent rounded-xl px-2 py-1 text-2xl font-extrabold"
+          className="rounded-xl px-2 py-1 text-2xl font-extrabold hover:bg-accent"
           href="/"
         >
           BookMania
