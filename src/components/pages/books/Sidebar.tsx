@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import getAllAuthors from "@/services/getAllAuthors";
 import getAllGenres from "@/services/getAllGenres";
 import { TAuthor, TGenre } from "@/types";
@@ -37,6 +38,12 @@ const Sidebar = async () => {
             </Link>
           ))}
         </div>
+      </div>
+
+      <div>
+        <Link href="/books">
+          <Button>Clear Filter</Button>
+        </Link>
       </div>
     </aside>
   );

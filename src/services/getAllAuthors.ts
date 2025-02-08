@@ -1,11 +1,15 @@
 import { apiBaseUrl } from "@/secrets";
 
 const getAllAuthors = async () => {
-  const data = await fetch(`${apiBaseUrl}/authors`, {
+  const res = await fetch(`${apiBaseUrl}/authors/`, {
     cache: "force-cache",
   });
 
-  const authors = await data.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch authors");
+  }
+
+  const authors = await res.json();
 
   return authors;
 };

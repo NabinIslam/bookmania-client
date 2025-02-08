@@ -1,11 +1,15 @@
 import { apiBaseUrl } from "@/secrets";
 
 const getAllGenres = async () => {
-  const data = await fetch(`${apiBaseUrl}/genres`, {
+  const res = await fetch(`${apiBaseUrl}/genres/`, {
     cache: "force-cache",
   });
 
-  const genres = await data.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch genres");
+  }
+
+  const genres = await res.json();
 
   return genres;
 };

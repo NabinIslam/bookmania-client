@@ -13,3 +13,17 @@ export type TAuthor = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TBook = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  coverImage: string;
+  authorId: string;
+  genreId: string;
+  createdAt: string;
+  updatedAt: string;
+  author: TAuthor;
+  genre: TGenre;
+};

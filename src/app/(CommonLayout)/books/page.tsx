@@ -8,19 +8,9 @@ export const metadata: Metadata = {
   title: "BookMania | Explore Books",
 };
 
-type TBooksPageSearchParams = {
-  genre: string;
-};
 
-const BooksPage = ({
-  searchParams,
-}: {
-  searchParams: TBooksPageSearchParams;
-}) => {
-  const { genre } = searchParams;
 
-  console.log("🚀 ~ genre:", genre);
-
+const BooksPage = () => {
   return (
     <main>
       <div className="container space-y-10 py-20">
