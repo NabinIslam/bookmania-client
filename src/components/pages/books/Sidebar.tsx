@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 
 const Sidebar = () => {
+
   return (
     <aside className="space-y-10">
       <div>

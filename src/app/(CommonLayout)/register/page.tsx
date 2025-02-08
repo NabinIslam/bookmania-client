@@ -1,5 +1,5 @@
+import RegisterForm from "@/components/pages/register/RegisterForm";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,13 +29,7 @@ const RegisterPage = () => {
             <p className="mt-1 text-center text-sm lg:text-left">
               Please register to use the platform
             </p>
-            <form className="mt-5 space-y-4" action="">
-              <Input type="email" placeholder="Email address" required />
-              <Input type="password" placeholder="Password" required />
-              <div className="flex items-center justify-center lg:justify-start">
-                <Button>Register</Button>
-              </div>
-            </form>
+            <RegisterForm />
             <p className="mt-2 text-center text-sm lg:text-left">
               Already have an account?{" "}
               <Link className="font-bold hover:underline" href="/login">
