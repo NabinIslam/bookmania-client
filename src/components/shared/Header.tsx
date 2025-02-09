@@ -18,6 +18,8 @@ const Header = () => {
   const { user } = useUser();
   const { push } = useRouter();
 
+  const token = localStorage.getItem("token");
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     push("/books");
@@ -33,7 +35,7 @@ const Header = () => {
           BookMania
         </Link>
 
-        {user ? (
+        {user && token ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar className="border">
@@ -47,8 +49,7 @@ const Header = () => {
               <Link className="cursor-pointer" href="/add-book">
                 <DropdownMenuItem>Add book</DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
+
               <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
