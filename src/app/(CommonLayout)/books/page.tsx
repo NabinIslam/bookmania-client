@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Search from "@/components/pages/books/Search";
 
 import { Metadata } from "next";
@@ -8,13 +9,13 @@ export const metadata: Metadata = {
   title: "BookMania | Explore Books",
 };
 
+const BooksPage = ({ searchParams }: { searchParams: any }) => {
+  const { search } = searchParams;
 
-
-const BooksPage = () => {
   return (
     <main>
       <div className="container space-y-10 py-20">
-        <Search />
+        <Search search={search} />
 
         <div className="flex">
           <Sidebar />

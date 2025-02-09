@@ -1,7 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUser } from "@/providers/UserContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const { user } = useUser();
+  const { push } = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    push("/books");
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white py-3 shadow-sm">
       <nav className="container flex items-center justify-between">
@@ -12,9 +33,28 @@ const Header = () => {
           BookMania
         </Link>
 
-        <Link href="/login">
-          <Button>Login</Button>
-        </Link>
+        {user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar className="border">
+                <AvatarImage src={user.photo} />
+                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Link href="/login">
+            <Button>Login</Button>
+          </Link>
+        )}
       </nav>
     </header>
   );

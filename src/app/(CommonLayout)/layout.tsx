@@ -3,6 +3,7 @@ import "../globals.css";
 import { Montserrat } from "next/font/google";
 import TanstackQueryProvider from "@/providers/TanstackQueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { UserProvider } from "@/providers/UserContext";
 
 const montserrat = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -17,11 +18,13 @@ export default function CommonLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${montserrat.className} antialiased`}>
-        <TanstackQueryProvider>
-          <Header />
-          {children}
-          <Toaster />
-        </TanstackQueryProvider>
+        <UserProvider>
+          <TanstackQueryProvider>
+            <Header />
+            {children}
+            <Toaster />
+          </TanstackQueryProvider>
+        </UserProvider>
       </body>
     </html>
   );

@@ -10,15 +10,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { LiteralUnion, signIn } from "next-auth/react";
-import { BuiltInProviderType } from "next-auth/providers/index";
-
-// Define an interface for the login data
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const { push } = useRouter();
   const { register, handleSubmit, reset } = useForm();
-  const { mutate, isPending, isSuccess, isError } = useMutation({
-    mutationFn: async (data) => await signIn(data),
+  const { data, mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: async (data: FieldValues) =>
+      await axios.post(`${apiBaseUrl}/users/login/`, data),
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -27,14 +26,20 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      localStorage.setItem("token", data.data.payload.token);
       reset();
-      toast.success("Logged in successfully!");
+      push("/books");
+      toast.success("Login successful!");
     }
 
     if (isError) {
       toast.error("Could not login, please check your credentials!");
     }
-  }, [reset, isSuccess, isError]);
+
+    if (error) {
+      console.error(error);
+    }
+  }, [reset, isSuccess, isError, push, data?.data.payload.token, error]);
 
   return (
     <form
