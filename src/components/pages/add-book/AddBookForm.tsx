@@ -11,6 +11,7 @@ import { apiBaseUrl } from "@/secrets";
 import { TAuthor, TGenre } from "@/types";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import AddBookFormSkeleton from "@/components/skeletons/AddBookFormSkeleton";
 
 const AddBookForm = () => {
   const { data: genres, isLoading: isGenresLoading } = useQuery({
@@ -62,11 +63,11 @@ const AddBookForm = () => {
     }
   }, [isSuccess, reset, isError, error]);
 
-  if (isAuthorsLoading || isGenresLoading) return <h1>Loading...</h1>;
+  if (isAuthorsLoading || isGenresLoading) return <AddBookFormSkeleton />;
 
   return (
     <form
-      className="space-y-5 text-sm lg:w-1/2"
+      className="space-y-5 text-sm"
       action=""
       onSubmit={handleSubmit(onSubmit)}
     >
