@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: "BookMania | Explore Books",
 };
 
-const BooksPage = ({ searchParams }: { searchParams: any }) => {
-  const { search } = searchParams;
+const BooksPage = async ({ searchParams }: { searchParams: any }) => {
+  const { search } = await searchParams;
 
   return (
     <main>
-      <div className="container space-y-10 py-20">
+      <div className="container space-y-20 py-20">
         <Search search={search} />
 
         <div className="flex">

@@ -16,8 +16,8 @@ export default function CommonLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.className} antialiased`}>
+    <html lang="en">
+      <body className={`${montserrat.className}`}>
         <UserProvider>
           <TanstackQueryProvider>
             <Header />

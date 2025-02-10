@@ -1,23 +1,22 @@
-const BookCard = () => {
+import { TBook } from "@/types";
+import Image from "next/image";
+
+const BookCard = ({ book }: { book: TBook }) => {
   return (
-    <div className="rounded-2xl border bg-white shadow-sm duration-300">
-      <div className="relative">
-        <img
-          className="h-64 w-full object-cover"
-          src="https://via.placeholder.com/400x600"
-          alt="Book Cover"
+    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm duration-300">
+      <div className="relative min-h-[400px] w-full overflow-hidden">
+        <Image
+          className="rounded-t-2xl object-cover object-center duration-200 hover:scale-105"
+          src={book.coverImage}
+          alt={book.title}
+          fill
         />
       </div>
 
       <div className="p-6">
-        <h2 className="mb-2 text-2xl font-bold text-gray-800">
-          The Great Novel
-        </h2>
-        <p className="mb-4 text-sm text-gray-600">By John Doe</p>
-        <p className="mb-4 text-gray-700">
-          A captivating story of love, loss, and redemption. Dive into the world
-          of unforgettable characters and breathtaking landscapes.
-        </p>
+        <h2 className="mb-2 text-2xl font-bold text-gray-800">{book.title}</h2>
+        <p className="mb-4 text-sm text-gray-600">By {book.author.name}</p>
+        <p className="mb-4 line-clamp-3 text-gray-700">{book.description}</p>
       </div>
     </div>
   );

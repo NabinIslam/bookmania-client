@@ -24,7 +24,9 @@ const Books = () => {
 
   return (
     <div className="grid basis-full grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-      {data?.payload?.map((book: TBook) => <BookCard key={book.id} />)}
+      {data?.payload?.map((book: TBook) => (
+        <BookCard key={book.id} book={book} />
+      ))}
     </div>
   );
 };

@@ -34,7 +34,6 @@ interface UserProviderProps {
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // Fetch user info when the app loads (e.g., from a token)
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
