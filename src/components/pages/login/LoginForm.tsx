@@ -6,21 +6,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiBaseUrl } from "@/secrets";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import 
+import Cookies from "js-cookie";
 
 const LoginForm = () => {
-  const { push } = useRouter();
-  const { register, handleSubmit, reset } = useForm();
-  const { data, mutate, isPending, isSuccess, isError, error } = useMutation({
-    mutationFn: async (data: FieldValues) =>
-      // await axios.post(`${apiBaseUrl}/users/login/`, data),
-    signIn
+  const { register, handleSubmit } = useForm<FieldValues>();
+
+  const { mutate, isSuccess, isError, isPending, data } = useMutation<
+    AxiosResponse,
+    unknown,
+    FieldValues
+  >({
+    mutationFn: async (loginData) =>
+      await axios.post(`${apiBaseUrl}/users/login/`, loginData),
   });
+
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     mutate(data);
@@ -28,20 +33,24 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("token", data.data.payload.token);
-      reset();
-      push("/books");
+      const token = data?.data?.payload?.token;
+
+      // Save token to cookies
+      Cookies.set("token", token, {
+        expires: 1,
+        secure: true,
+      });
+
+      // Redirect to admin dashboard
+      router.push("/books");
+
       toast.success("Login successful!");
     }
 
     if (isError) {
-      toast.error("Could not login, please check your credentials!");
+      toast.error("Could not login");
     }
-
-    if (error) {
-      console.error(error);
-    }
-  }, [reset, isSuccess, isError, push, data?.data.payload.token, error]);
+  }, [data?.data?.payload?.token, isError, isSuccess, router]);
 
   return (
     <form

@@ -4,8 +4,8 @@ import { apiBaseUrl } from "@/secrets";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import BookCard from "./BookCard";
 import { TBook } from "@/types";
+import SearchResultBookCard from "./SearchResultBookCard";
 
 const SearchedBooks = () => {
   const searchParams = useSearchParams();
@@ -24,7 +24,9 @@ const SearchedBooks = () => {
 
   return (
     <section>
-      {data?.payload?.map((book: TBook) => <BookCard key={book.id} />)}
+      {data?.payload?.map((book: TBook) => (
+        <SearchResultBookCard key={book.id} book={book} />
+      ))}
     </section>
   );
 };
